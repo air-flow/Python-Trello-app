@@ -14,6 +14,18 @@ def ApigetKeyFile():
     return list(map(lambda i: i.rstrip("\n"), result))
 
 
+def main():
+    temp = ApigetKeyFile()
+    # print(type(temp[0]))
+    client = trello.TrelloClient(api_key=temp[0],
+                                 token=temp[1],
+                                 )
+    return client
+    # boards = client.list_boards()
+    # return boards
+    # pprint.pprint(boards)
+
+
 if __name__ == "__main__":
     cd()
     temp = ApigetKeyFile()
