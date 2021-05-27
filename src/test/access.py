@@ -26,6 +26,10 @@ def main():
     # pprint.pprint(boards)
 
 
+import os
+import pprint
+
+
 if __name__ == "__main__":
     cd()
     temp = ApigetKeyFile()
