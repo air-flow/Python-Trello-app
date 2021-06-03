@@ -1,4 +1,6 @@
 # TODO class trello
+import trello
+
 
 class TrelloAPI():
     """
@@ -9,15 +11,19 @@ class TrelloAPI():
         """
         docstring
         """
-        client = None
         api_key = None
         token = None
+        self._GetApiKeyFile()
+        client = None
+        self._TrelloClientAccess()
 
     def _TrelloClientAccess(self):
         """
         docstring
         """
-        pass
+        self.client = trello.TrelloClient(api_key=self.api_key,
+                                          token=self.token,
+                                          )
 
     def _GetApiKeyFile(self, path="../../mine/Token.txt"):
         """
