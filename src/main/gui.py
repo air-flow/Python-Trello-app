@@ -56,7 +56,7 @@ class PySimpleGUI():
         if event == "read":
             self._flag = False
         if event == "save":
-            print("test")
+            self._window.FindElement('2').Update('python')
             self._flag = True
 
 
