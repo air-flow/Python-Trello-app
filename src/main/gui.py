@@ -1,5 +1,6 @@
 # TODO pysimplegui class
 import PySimpleGUI as sg
+# https://pysimplegui.readthedocs.io/en/latest/#output-element
 
 
 class PySimpleGUI():
@@ -22,6 +23,7 @@ class PySimpleGUI():
     def __init__(self,):
         sg.theme('DarkAmber')
         self._layout = []
+        self._flag = None
 
     def _Exec(self,):
         self._test()
@@ -31,7 +33,8 @@ class PySimpleGUI():
         self._Exec()
         while True:
             event, values = self._window.read()
-            if event == "read":
+            self._JugeEventParameter(event, values)
+            if not self._flag:
                 break
         self._EndWindow()
 
@@ -42,7 +45,19 @@ class PySimpleGUI():
         t = [sg.Text('読み取り対象のファイルとページを指定してください')]
         t.append([sg.Button('読み取り', key='read'),
                  sg.Button('csvに保存', key='save')])
+        t.append([sg.Output(size=(40, 10), key="1")])
+        t.append([sg.Output(size=(40, 10), key="2")])
         self._layout.append(t)
+
+    def _JugeEventParameter(self, event, values):
+        self._flag = False
+        if event == sg.WIN_CLOSED:  # ウィンドウのXボタンを押したときの処理
+            self._flag = False
+        if event == "read":
+            self._flag = False
+        if event == "save":
+            print("test")
+            self._flag = True
 
 
 def main():
