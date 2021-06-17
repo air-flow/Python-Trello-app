@@ -29,4 +29,9 @@ class StopWatch():
 
 
 if __name__ == "__main__":
-    pass
+    s = StopWatch()
+    s._StartTime()
+    time.sleep(10)
+    s._EndTime()
+    s._MeasurementTime()
+    print(s._all_time)
