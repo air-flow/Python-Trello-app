@@ -1,6 +1,8 @@
 # TODO pysimplegui class
 import PySimpleGUI as sg
 # https://pysimplegui.readthedocs.io/en/latest/#output-element
+import stopwatch as sw
+import os
 
 
 class PySimpleGUI():
@@ -26,7 +28,7 @@ class PySimpleGUI():
         self._flag = None
 
     def _Exec(self,):
-        self._test()
+        self._Initlayout()
         self._window = sg.Window('サンプルプログラム', self._layout)
 
     def _MainWindow(self):
@@ -41,12 +43,18 @@ class PySimpleGUI():
     def _EndWindow(self,):
         self._window.close()
 
-    def _test(self, ):
-        t = [sg.Text('読み取り対象のファイルとページを指定してください')]
-        t.append([sg.Button('読み取り', key='read'),
-                 sg.Button('csvに保存', key='save')])
-        t.append([sg.Output(size=(40, 10), key="1")])
-        t.append([sg.Output(size=(40, 10), key="2")])
+    def _Initlayout(self, ):
+        t = []
+        # t.append([sg.Button('読み取り', key='read'),
+        #          sg.Button('csvに保存', key='save')])
+        # t.append([sg.Output(size=(40, 10), key="stopwatch")])
+        t.append([sg.Text('書籍選択', size=(15, 1)), sg.Combo(
+            ('あり', 'なし'), default_value="あり", size=(10, 1), key='SelectBook'), sg.Button('書籍追加', key='AddBook')])
+        # t.append([
+        #     sg.Button('書籍追加', key='AddBook')])
+        # t.append([sg.Output(size=(40, 3), key="stopwatch")])
+        t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
+        t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch")])
         self._layout.append(t)
 
     def _JugeEventParameter(self, event, values):
@@ -59,10 +67,27 @@ class PySimpleGUI():
             self._window.FindElement('2').Update('python')
             self._flag = True
 
+    def _StopWatch(self, ):
+        s = sw.StopWatch()
+        s._StartTime()
+        # self._window.FindElement('stopwatch').Update(
+        #     s._start_time.strftime('%H:%M:%S'))
+        s._EndTime()
+        return s._start_time.strftime('%H:%M:%S')
+
+    def _StringToday(self, ):
+        s = sw.StopWatch()
+        return s._Today()
+
 
 def main():
+    cd()
     gui = PySimpleGUI()
     gui._MainWindow()
+
+
+def cd():
+    os.chdir(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":
