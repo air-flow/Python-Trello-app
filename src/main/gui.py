@@ -54,7 +54,14 @@ class PySimpleGUI():
         #     sg.Button('書籍追加', key='AddBook')])
         # t.append([sg.Output(size=(40, 3), key="stopwatch")])
         t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
-        t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch")])
+        t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
+            'START', key='swstart'), sg.Button('STOP', key='swstop')])
+        t.append([sg.Checkbox("today list add", font=("Meiryo", 10))])
+        t.append([sg.Checkbox("list not exists create list", font=("Meiryo", 10))])
+        t.append([sg.Checkbox("time add", font=("Meiryo", 10))])
+        t.append([sg.Checkbox("book finish checkd", font=("Meiryo", 10))])
+        t.append([
+            sg.Button('exec', key='exec'), sg.Button('view', key='view')])
         self._layout.append(t)
 
     def _JugeEventParameter(self, event, values):
