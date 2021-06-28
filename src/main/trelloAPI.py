@@ -1,6 +1,7 @@
 # TODO class trello
-from trello import TrelloClient, card
+from trello import TrelloClient
 import os
+import pprint
 
 
 def cd():
@@ -24,6 +25,7 @@ class TrelloAPI():
         self._TrelloClientAccess()
         self._board = []
         self._doing_list = []
+        self._cards = []
 
     def _TrelloClientAccess(self):
         """
@@ -52,20 +54,35 @@ class TrelloAPI():
     def _GetBookList(self):
         path = self._GetFile("../../mine/list.txt")
         self._doing_list = self._client.get_list(path[0])
-        print(self._doing_list.name)
+        # print(self._doing_list.name)
 
     def _GetBoardList(self):
         path = self._GetFile("../../mine/Borad.txt")
         self._board = self._client.get_board(path[0])
-        cards = self._board.get_cards()
-        for i in cards:
+
+    def _GetCardslist(self):
+        self._cards = self._board.get_cards()
+
+    def _GetDoingBookList(self):
+        self._GetBookList()
+        self._GetBoardList()
+        self._GetCardslist()
+        result = {}
+        for i in self._cards:
             if i.list_id == self._doing_list.id:
-                print(i.name)
-                print(i.list_id)
+                result[i.name.replace("\u3000", " ")] = i
+
+        return result
+
+
+def TrelloGetBooks():
+    cd()
+    t = TrelloAPI()
+    # pprint.pprint(t._GetDoingBookList())
+    return t._GetDoingBookList()
 
 
 if __name__ == "__main__":
     cd()
     t = TrelloAPI()
-    t._GetBookList()
-    t._GetBoardList()
+    pprint.pprint(t._GetDoingBookList())
