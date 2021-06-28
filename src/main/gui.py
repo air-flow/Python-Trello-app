@@ -45,14 +45,9 @@ class PySimpleGUI():
 
     def _Initlayout(self, ):
         t = []
-        # t.append([sg.Button('読み取り', key='read'),
-        #          sg.Button('csvに保存', key='save')])
-        # t.append([sg.Output(size=(40, 10), key="stopwatch")])
+
         t.append([sg.Text('書籍選択', size=(15, 1)), sg.Combo(
             ('あり', 'なし'), default_value="あり", size=(10, 1), key='SelectBook'), sg.Button('書籍追加', key='AddBook')])
-        # t.append([
-        #     sg.Button('書籍追加', key='AddBook')])
-        # t.append([sg.Output(size=(40, 3), key="stopwatch")])
         t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
         t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
             'START', key='swstart'), sg.Button('STOP', key='swstop')])
