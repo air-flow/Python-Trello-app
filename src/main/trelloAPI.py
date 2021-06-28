@@ -1,5 +1,5 @@
 # TODO class trello
-from trello import TrelloClient
+from trello import TrelloClient, card
 import os
 
 
@@ -22,6 +22,8 @@ class TrelloAPI():
         self._SetAPIKeyToken(result)
         self._client = None
         self._TrelloClientAccess()
+        self._board = []
+        self._doing_list = []
 
     def _TrelloClientAccess(self):
         """
@@ -48,14 +50,22 @@ class TrelloAPI():
         self._api_key, self._token = files
 
     def _GetBookList(self):
-        """
-        docstring
-        """
+        path = self._GetFile("../../mine/list.txt")
+        self._doing_list = self._client.get_list(path[0])
+        print(self._doing_list.name)
+
+    def _GetBoardList(self):
         path = self._GetFile("../../mine/Borad.txt")
-        print(self._client.get_board(path[0]))
+        self._board = self._client.get_board(path[0])
+        cards = self._board.get_cards()
+        for i in cards:
+            if i.list_id == self._doing_list.id:
+                print(i.name)
+                print(i.list_id)
 
 
 if __name__ == "__main__":
     cd()
     t = TrelloAPI()
     t._GetBookList()
+    t._GetBoardList()
