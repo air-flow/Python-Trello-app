@@ -3,6 +3,7 @@ import PySimpleGUI as sg
 # https://pysimplegui.readthedocs.io/en/latest/#output-element
 import stopwatch as sw
 import os
+import trelloAPI
 
 
 class PySimpleGUI():
@@ -45,9 +46,9 @@ class PySimpleGUI():
 
     def _Initlayout(self, ):
         t = []
-
+        select_books = self._SelectBook()
         t.append([sg.Text('書籍選択', size=(15, 1)), sg.Combo(
-            ('あり', 'なし'), default_value="あり", size=(10, 1), key='SelectBook'), sg.Button('書籍追加', key='AddBook')])
+            select_books, default_value=select_books[0], size=(25, 1), key='SelectBook'), sg.Button('書籍追加', key='AddBook')])
         t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
         t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
             'START', key='swstart'), sg.Button('STOP', key='swstop')])
@@ -58,6 +59,10 @@ class PySimpleGUI():
         t.append([
             sg.Button('exec', key='exec'), sg.Button('view', key='view')])
         self._layout.append(t)
+
+    def _SelectBook(self):
+        books = trelloAPI.TrelloGetBooks()
+        return tuple(books.keys())
 
     def _JugeEventParameter(self, event, values):
         self._flag = False
@@ -88,9 +93,15 @@ def main():
     gui._MainWindow()
 
 
+def test():
+    gui = PySimpleGUI()
+    print(gui._SelectBook())
+
+
 def cd():
     os.chdir(os.path.dirname(__file__))
 
 
 if __name__ == "__main__":
     main()
+    # test()
