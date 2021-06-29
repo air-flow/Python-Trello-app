@@ -82,6 +82,14 @@ def TrelloGetBooks():
     return t._GetDoingBookList()
 
 
+def TrelloAddBooks():
+    # Todo book add list
+    cd()
+    t = TrelloAPI()
+    # pprint.pprint(t._GetDoingBookList())
+    return t._GetDoingBookList()
+
+
 if __name__ == "__main__":
     cd()
     t = TrelloAPI()

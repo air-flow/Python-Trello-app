@@ -48,7 +48,8 @@ class PySimpleGUI():
         t = []
         select_books = self._SelectBook()
         t.append([sg.Text('書籍選択', size=(15, 1)), sg.Combo(
-            select_books, default_value=select_books[0], size=(25, 1), key='SelectBook'), sg.Button('書籍追加', key='AddBook')])
+            select_books, default_value=select_books[0], size=(25, 1), key='SelectBook'),
+            sg.Button('書籍追加', key='AddBook')])
         t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
         t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
             'START', key='swstart'), sg.Button('STOP', key='swstop')])
@@ -70,6 +71,9 @@ class PySimpleGUI():
             self._flag = False
         if event == "read":
             self._flag = False
+        if event == "AddBook":
+
+            self._flag = True
         if event == "save":
             self._window.FindElement('2').Update('python')
             self._flag = True
@@ -81,6 +85,11 @@ class PySimpleGUI():
         #     s._start_time.strftime('%H:%M:%S'))
         s._EndTime()
         return s._start_time.strftime('%H:%M:%S')
+
+    def _AddBook(self):
+        """
+        TrelloAPI 書籍追加関数作成
+        """
 
     def _StringToday(self, ):
         s = sw.StopWatch()
