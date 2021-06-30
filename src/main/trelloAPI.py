@@ -2,6 +2,7 @@
 from trello import TrelloClient
 import os
 import pprint
+import datetime
 
 
 def cd():
@@ -71,8 +72,18 @@ class TrelloAPI():
         for i in self._cards:
             if i.list_id == self._doing_list.id:
                 result[i.name.replace("\u3000", " ")] = i
-
         return result
+
+    def _AddDoingBookList(self, book_name):
+        self._GetBookList()
+        self._GetBoardList()
+        result = self._doing_list.add_card(book_name)
+        dt = datetime.date.today()
+        result.comment(
+            "READ START " +
+            dt.strftime("%Y-%m-%d"))
+        # print(self._doing_list)
+        return True if result is not None else False
 
 
 def TrelloGetBooks():
@@ -82,15 +93,16 @@ def TrelloGetBooks():
     return t._GetDoingBookList()
 
 
-def TrelloAddBooks():
+def TrelloAddBooks(book_name):
     # Todo book add list
     cd()
     t = TrelloAPI()
     # pprint.pprint(t._GetDoingBookList())
-    return t._GetDoingBookList()
+    return t._AddDoingBookList(book_name)
 
 
 if __name__ == "__main__":
-    cd()
-    t = TrelloAPI()
-    pprint.pprint(t._GetDoingBookList())
+    # cd()
+    # t = TrelloAPI()
+    # pprint.pprint(t._GetDoingBookList())
+    TrelloAddBooks()
