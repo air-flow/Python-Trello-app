@@ -49,7 +49,8 @@ class PySimpleGUI():
         select_books = self._SelectBook()
         t.append([sg.Text('書籍選択', size=(15, 1)), sg.Combo(
             select_books, default_value=select_books[0], size=(25, 1), key='SelectBook'),
-            sg.Button('書籍追加', key='AddBook')])
+            sg.Button('書籍追加', key='AddBook'),
+            sg.Button('書籍リセット', key='ResetBook')])
         t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
         t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
             'START', key='swstart'), sg.Button('STOP', key='swstop')])
