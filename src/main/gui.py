@@ -77,6 +77,10 @@ class PySimpleGUI():
             self._flag = self._AddBook(text)
             print(self._flag, "flag")
         if event == "ResetBook":
+            temp = self._SelectBook()
+            self._window.find_element("SelectBook").Update(temp[-1])
+            # self._window["SelectBook"].update(
+            #     values=temp, size=(25, 1),)
             self._flag = True
         if event == "save":
             self._window.FindElement('2').Update('python')

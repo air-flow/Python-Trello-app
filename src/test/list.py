@@ -18,5 +18,7 @@ def main():
 
 
 if __name__ == "__main__":
-    cd()
-    main()
+    # cd()
+    # main()
+    l = tuple(range(10))
+    print(l[::-1])
