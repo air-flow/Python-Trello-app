@@ -27,6 +27,7 @@ class PySimpleGUI():
         sg.theme('DarkAmber')
         self._layout = []
         self._flag = None
+        self._stopwatch_flag = False
 
     def _Exec(self,):
         self._Initlayout()
@@ -68,6 +69,7 @@ class PySimpleGUI():
 
     def _JugeEventParameter(self, event, values):
         self._flag = False
+        print(values)
         if event == sg.WIN_CLOSED:  # ウィンドウのXボタンを押したときの処理
             self._flag = False
         if event == "read":
@@ -85,13 +87,37 @@ class PySimpleGUI():
         if event == "save":
             self._window.FindElement('2').Update('python')
             self._flag = True
+        if self._stopwatch_flag:
+            self._window.FindElement('stopwatch').Update()
+            self._flag = True
+        if event == "swstart":
+            self._stopwatch_flag = True
 
-    def _StopWatch(self, ):
+            self._flag = True
+        if event == "swstop":
+            self._stopwatch_flag = False
+            self._flag = True
+
+    def _StopWatchInit(self, ):
+        self._stopwatch = sw.StopWatch()
+
+    def _StopWatchStart(self, ):
+        self._StopWatchInit()
+        self._stopwatch._StartTime()
+        return self._stopwatch._strftime(self._stopwatch._start_time)
+
+    def _StopWatchEnd(self, ):
+        self._StopWatchInit()
+        result = self._stopwatch._MeasurementTime()
+        return self._stopwatch._strftime(self._stopwatch._start_time)
+
+    def _StopWatchTime(self, ):
         s = sw.StopWatch()
-        s._StartTime()
+        s._MeasurementTime()
+
         # self._window.FindElement('stopwatch').Update(
         #     s._start_time.strftime('%H:%M:%S'))
-        s._EndTime()
+        # s._EndTime()
         return s._start_time.strftime('%H:%M:%S')
 
     def _AddBook(self, book_name):
