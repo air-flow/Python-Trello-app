@@ -98,6 +98,8 @@ def TrelloAddBooks(book_name):
     cd()
     t = TrelloAPI()
     # pprint.pprint(t._GetDoingBookList())
+    if len(book_name) == 0:
+        return True
     return t._AddDoingBookList(book_name)
 
 
