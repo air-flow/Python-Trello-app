@@ -73,7 +73,10 @@ class PySimpleGUI():
         if event == "read":
             self._flag = False
         if event == "AddBook":
-
+            text = sg.popup_get_text('書籍名入力', '書籍追加')
+            self._flag = self._AddBook(text)
+            print(self._flag, "flag")
+        if event == "ResetBook":
             self._flag = True
         if event == "save":
             self._window.FindElement('2').Update('python')
@@ -87,10 +90,12 @@ class PySimpleGUI():
         s._EndTime()
         return s._start_time.strftime('%H:%M:%S')
 
-    def _AddBook(self):
+    def _AddBook(self, book_name):
         """
         TrelloAPI 書籍追加関数作成
         """
+        result = trelloAPI.TrelloAddBooks(book_name)
+        return result
 
     def _StringToday(self, ):
         s = sw.StopWatch()
