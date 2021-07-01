@@ -29,8 +29,13 @@ class PySimpleGUI():
         self._flag = None
         self._stopwatch_flag = False
 
-    def _Exec(self,):
-        self._Initlayout()
+    def _Exec(self, window=True):
+        layout = None
+        if window:
+            layout = self._Initlayout()
+        else:
+            layout = self._InitSublayout()
+        self._AppendLayout(layout)
         self._window = sg.Window('サンプルプログラム', self._layout)
 
     def _MainWindow(self):
@@ -61,7 +66,28 @@ class PySimpleGUI():
         t.append([sg.Checkbox("book finish checkd", font=("Meiryo", 10))])
         t.append([
             sg.Button('exec', key='exec'), sg.Button('view', key='view')])
-        self._layout.append(t)
+        return t
+
+    def _InitSublayout(self, ):
+        t = []
+        select_books = self._SelectBook()
+        t.append([sg.Text('書籍選択', size=(15, 1)), sg.Combo(
+            select_books, default_value=select_books[0], size=(25, 1), key='SelectBook'),
+            sg.Button('書籍追加', key='AddBook'),
+            sg.Button('書籍リセット', key='ResetBook')])
+        t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
+        t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
+            'START', key='swstart'), sg.Button('STOP', key='swstop')])
+        t.append([sg.Checkbox("today list add", font=("Meiryo", 10))])
+        t.append([sg.Checkbox("list not exists create list", font=("Meiryo", 10))])
+        t.append([sg.Checkbox("time add", font=("Meiryo", 10))])
+        t.append([sg.Checkbox("book finish checkd", font=("Meiryo", 10))])
+        t.append([
+            sg.Button('exec', key='exec'), sg.Button('view', key='view')])
+        return t
+
+    def _AppendLayout(self, layout):
+        self._layout.append(layout)
 
     def _SelectBook(self):
         books = trelloAPI.TrelloGetBooks()

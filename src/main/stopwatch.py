@@ -34,7 +34,9 @@ class StopWatch():
 
     def _TimeUp(self):
         temp = datetime.datetime.now() - self._start_time
-        return self._strftime(temp)
+        # print(temp, type(temp))
+        return temp
+        # return self._strftime(temp)
 
     def _strftime(self, time):
         return time.strftime('%H:%M:%S')
@@ -45,7 +47,8 @@ if __name__ == "__main__":
     s._StartTime()
     # time.sleep(10)
     s._EndTime()
-    s._MeasurementTime()
+    # s._MeasurementTime()
+    s._TimeUp()
     print(s._all_time)
     for i in range(5):
         time.sleep(1)
