@@ -87,16 +87,15 @@ class PySimpleGUI():
         if event == "save":
             self._window.FindElement('2').Update('python')
             self._flag = True
-        if self._stopwatch_flag:
-            self._window.FindElement('stopwatch').Update()
-            self._flag = True
         if event == "swstart":
-            self._stopwatch_flag = True
-
+            self._stopwatch_flag = self._StopWatchStart()
             self._flag = True
         if event == "swstop":
             self._stopwatch_flag = False
             self._flag = True
+        if self._stopwatch_flag:
+            self._window.FindElement('stopwatch').Update(self._StopWatchTime())
+            # self._flag = True
 
     def _StopWatchInit(self, ):
         self._stopwatch = sw.StopWatch()
@@ -104,21 +103,19 @@ class PySimpleGUI():
     def _StopWatchStart(self, ):
         self._StopWatchInit()
         self._stopwatch._StartTime()
-        return self._stopwatch._strftime(self._stopwatch._start_time)
+        if self._stopwatch._start_time is not None:
+            return True
+        else:
+            return False
 
-    def _StopWatchEnd(self, ):
-        self._StopWatchInit()
-        result = self._stopwatch._MeasurementTime()
-        return self._stopwatch._strftime(self._stopwatch._start_time)
+    # def _StopWatchEnd(self, ):
+    #     self._StopWatchInit()
+    #     result = self._stopwatch._MeasurementTime()
+    #     return self._stopwatch._strftime(result)
 
-    def _StopWatchTime(self, ):
-        s = sw.StopWatch()
-        s._MeasurementTime()
-
-        # self._window.FindElement('stopwatch').Update(
-        #     s._start_time.strftime('%H:%M:%S'))
-        # s._EndTime()
-        return s._start_time.strftime('%H:%M:%S')
+    def _StopWatchTime(self):
+        result = self._stopwatch._TimeUp()
+        return result
 
     def _AddBook(self, book_name):
         """
