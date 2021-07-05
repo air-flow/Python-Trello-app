@@ -20,7 +20,7 @@ class PySimpleGUI():
     - Trello 読破追加 チェックボックス
     - Trello 時間追加 チェックボックス
     - 実行 ボタン
-    - 結果表示 ボタン
+    - 結果表示 ボタンllll
     """
 
     def __init__(self,):
@@ -41,7 +41,8 @@ class PySimpleGUI():
     def _MainWindow(self):
         self._Exec()
         while True:
-            event, values = self._window.read()
+            event, values = self._window.read(
+                timeout=1000, timeout_key='-timeout-')
             self._JugeEventParameter(event, values)
             if not self._flag:
                 break
@@ -95,7 +96,7 @@ class PySimpleGUI():
 
     def _JugeEventParameter(self, event, values):
         self._flag = False
-        print(values)
+        # print(values)
         if event == sg.WIN_CLOSED:  # ウィンドウのXボタンを押したときの処理
             self._flag = False
         if event == "read":
@@ -119,9 +120,11 @@ class PySimpleGUI():
         if event == "swstop":
             self._stopwatch_flag = False
             self._flag = True
-        if self._stopwatch_flag:
-            self._window.FindElement('stopwatch').Update(self._StopWatchTime())
-            # self._flag = True
+        if event == '-timeout-':
+            if self._stopwatch_flag:
+                self._window.FindElement('stopwatch').Update(
+                    self._StopWatchTime())
+            self._flag = True
 
     def _StopWatchInit(self, ):
         self._stopwatch = sw.StopWatch()

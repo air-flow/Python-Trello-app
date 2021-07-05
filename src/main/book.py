@@ -1,1 +1,0 @@
-# TODO book list management
