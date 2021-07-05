@@ -79,10 +79,12 @@ class PySimpleGUI():
         t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
         t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
             'START', key='swstart'), sg.Button('STOP', key='swstop')])
-        t.append([sg.Checkbox("today list add", font=("Meiryo", 10))])
-        t.append([sg.Checkbox("list not exists create list", font=("Meiryo", 10))])
-        t.append([sg.Checkbox("time add", font=("Meiryo", 10))])
-        t.append([sg.Checkbox("book finish checkd", font=("Meiryo", 10))])
+        t.append([sg.Checkbox("today list add", default=True, font=("Meiryo", 10))])
+        # t.append([sg.Checkbox("list not exists create list",
+        #          default=True, font=("Meiryo", 10))])
+        t.append([sg.Checkbox("time add", default=True, font=("Meiryo", 10))])
+        t.append([sg.Checkbox("book finish checkd",
+                 default=False, font=("Meiryo", 10))])
         t.append([
             sg.Button('exec', key='exec'), sg.Button('view', key='view')])
         return t
@@ -114,6 +116,8 @@ class PySimpleGUI():
         if event == "save":
             self._window.FindElement('2').Update('python')
             self._flag = True
+        if event == "view":
+            self._flag = self._ViewPopUp()
         if event == "swstart":
             self._stopwatch_flag = self._StopWatchStart()
             self._flag = True
@@ -156,6 +160,10 @@ class PySimpleGUI():
     def _StringToday(self, ):
         s = sw.StopWatch()
         return s._Today()
+
+    def _ViewPopUp(self):
+        result = sg.popup_ok_cancel('popup_ok_cancel', "gaagg")
+        return result
 
 
 def main():
