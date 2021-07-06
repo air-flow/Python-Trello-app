@@ -98,7 +98,7 @@ class PySimpleGUI():
 
     def _JugeEventParameter(self, event, values):
         self._flag = False
-        # print(values)
+        print(values)
         if event == sg.WIN_CLOSED:  # ウィンドウのXボタンを押したときの処理
             self._flag = False
         if event == "read":
@@ -117,7 +117,7 @@ class PySimpleGUI():
             self._window.FindElement('2').Update('python')
             self._flag = True
         if event == "view":
-            self._flag = self._ViewPopUp()
+            self._flag = self._ViewPopUp(values["SelectBook"])
         if event == "swstart":
             self._stopwatch_flag = self._StopWatchStart()
             self._flag = True
@@ -161,9 +161,25 @@ class PySimpleGUI():
         s = sw.StopWatch()
         return s._Today()
 
-    def _ViewPopUp(self):
-        result = sg.popup_ok_cancel('popup_ok_cancel', "gaagg")
+    def _ViewPopUp(self, book):
+        """
+        確認表示する内容
+        - 対象書籍
+        - 読書時間
+        - 日付
+        """
+        time_to_calculate = self._stopwatch._MeasurementTime()
+        result = sg.popup_ok_cancel(
+            self._StringToday(), time_to_calculate, book)
+        self._result = {
+            "date": self._StringToday(),
+            "read_time": time_to_calculate,
+            "book_name": book
+        }
         return result
+
+    def _Save(self):
+        pass
 
 
 def main():
