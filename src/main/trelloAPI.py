@@ -85,6 +85,8 @@ class TrelloAPI():
         # print(self._doing_list)
         return True if result is not None else False
 
+    def _AddBook(self, result):
+        
 
 def TrelloGetBooks():
     cd()
