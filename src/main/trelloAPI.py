@@ -86,7 +86,8 @@ class TrelloAPI():
         return True if result is not None else False
 
     def _AddBook(self, result):
-        
+        pass
+
 
 def TrelloGetBooks():
     cd()
