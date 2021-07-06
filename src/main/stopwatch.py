@@ -27,7 +27,8 @@ class StopWatch():
     def _MeasurementTime(self):
         self._EndTime()
         self._all_time = self._end_time - self._start_time
-        return self._strftime(self._all_time)
+        return self._all_time
+        # return self._strftime(self._all_time)
 
     def _Today(self):
         return datetime.datetime.now().strftime('%Y-%m-%d')
