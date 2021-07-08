@@ -90,6 +90,12 @@ class TrelloAPI():
         everyday :daily doing  today check list add 
         book : move done book_name end read date
         """
+        if result["today"]:
+            pass
+        if result["time"]:
+            pass
+        if result["finish"]:
+            pass
         pass
 
     def _AddEveryday(self):
@@ -97,6 +103,12 @@ class TrelloAPI():
 
     def _MoveBookIsDone(self):
         pass
+
+    def _MoveCard(self,):
+        """
+        docstring
+        """
+        raise NotImplementedError
 
 
 def TrelloGetBooks():
