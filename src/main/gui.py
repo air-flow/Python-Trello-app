@@ -61,7 +61,7 @@ class PySimpleGUI():
         t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
         t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
             'START', key='swstart'), sg.Button('STOP', key='swstop')])
-        t.append([sg.Checkbox("toay list add", default=True,
+        t.append([sg.Checkbox("today list add", default=True,
                  font=("Meiryo", 10), key="today")])
         t.append([sg.Checkbox("time add", default=True,
                  font=("Meiryo", 10), key="time")])
@@ -98,6 +98,9 @@ class PySimpleGUI():
             self._flag = True
         if event == "save":
             print(values)
+            self._result["today"] = values["today"]
+            self._result["time"] = values["time"]
+            self._result["finish"] = values["finish"]
             self._flag = False
         if event == "view":
             self._flag = self._ViewPopUp(values["SelectBook"])
