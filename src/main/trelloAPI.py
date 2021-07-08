@@ -88,15 +88,14 @@ class TrelloAPI():
     def _AddResult(self, result):
         """
         everyday :daily doing  today check list add 
-        book : doing book_name start read date
-        book : done book_name end read date
+        book : move done book_name end read date
         """
         pass
 
     def _AddEveryday(self):
         pass
 
-    def _AddBook(self):
+    def _MoveBookIsDone(self):
         pass
 
 
