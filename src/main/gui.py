@@ -169,16 +169,16 @@ class PySimpleGUI():
         - 日付
         """
         time_to_calculate = self._stopwatch._MeasurementTime()
-        result = sg.popup_ok_cancel(
-            self._StringToday(), time_to_calculate, book)
         self._result = {
             "date": self._StringToday(),
             "read_time": time_to_calculate,
             "book_name": book
         }
+        result = sg.popup_ok_cancel(
+            self._result["date"], self._result["read_time"], self._result["book_name"])
         return result
 
-    def _Save(self):
+    def _Save(self, check_list):
         pass
 
 
