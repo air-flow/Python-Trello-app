@@ -61,25 +61,7 @@ class PySimpleGUI():
         t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
         t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
             'START', key='swstart'), sg.Button('STOP', key='swstop')])
-        t.append([sg.Checkbox("today list add", font=("Meiryo", 10))])
-        t.append([sg.Checkbox("list not exists create list", font=("Meiryo", 10))])
-        t.append([sg.Checkbox("time add", font=("Meiryo", 10))])
-        t.append([sg.Checkbox("book finish checkd", font=("Meiryo", 10))])
-        t.append([
-            sg.Button('exec', key='exec'), sg.Button('view', key='view')])
-        return t
-
-    def _InitSublayout(self, ):
-        t = []
-        select_books = self._SelectBook()
-        t.append([sg.Text('書籍選択', size=(15, 1)), sg.Combo(
-            select_books, default_value=select_books[0], size=(25, 1), key='SelectBook'),
-            sg.Button('書籍追加', key='AddBook'),
-            sg.Button('書籍リセット', key='ResetBook')])
-        t.append([sg.Text(self._StringToday(), size=(15, 1), key="date")])
-        t.append([sg.Text("00:00:00", size=(15, 1), key="stopwatch"), sg.Button(
-            'START', key='swstart'), sg.Button('STOP', key='swstop')])
-        t.append([sg.Checkbox("today list add", default=True,
+        t.append([sg.Checkbox("toay list add", default=True,
                  font=("Meiryo", 10), key="today")])
         t.append([sg.Checkbox("time add", default=True,
                  font=("Meiryo", 10), key="time")])
@@ -88,6 +70,9 @@ class PySimpleGUI():
         t.append([
             sg.Button('exec', key='exec'), sg.Button('view', key='view')])
         return t
+
+    def _InitSublayout(self, ):
+        pass
 
     def _AppendLayout(self, layout):
         self._layout.append(layout)
